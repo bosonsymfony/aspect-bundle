@@ -1,0 +1,103 @@
+/**
+ * Created by killer on 19/01/16.
+ */
+
+angular.module('app')
+        .run(
+                ['$rootScope',
+                    function ($rootScope) {
+
+                    }
+                ]
+        )
+        .config(
+                ['$stateProvider',
+                    function ($stateProvider) {
+
+                        //routes here
+                        $stateProvider
+                                .state('aspect', {
+                                    abstract: true,
+                                    url: '/aspect',
+                                    views: {
+                                        '': {
+                                            templateUrl: '{{ path('backend_layout')|raw }}'
+                                        },
+                                        'aside': {
+                                            templateUrl: '{{ path('backend_aside')|raw }}'
+                                        },
+                                        'content': {
+                                            templateUrl: '{{ path('backend_content')|raw }}'
+                                        }
+                                    }
+                                })
+                                .state('aspect.gest', {
+                                    url: '/administrarasp',
+                                    templateUrl: '{{ asset('bundles/aspect/adminApp/views/gestionar_aspectos.html')|raw }}',
+                                    controller: 'aspectGestionCtrl',
+                                    data: {
+                                        title: 'Editar/Eliminar Aspectos'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/aspect/adminApp/services/aspectGestionSvc.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/filters/aspectHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/directives/aspectHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/controllers/aspectGestionCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                })
+                                .state('aspect.add', {
+                                    url: '/add',
+                                    templateUrl: '{{ asset('bundles/aspect/adminApp/views/adicionar_aspecto.html')|raw }}',
+                                    controller: 'aspectAddCtrl',
+                                    data: {
+                                        title: 'Adicionar Aspectos'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/aspect/adminApp/services/aspectAddSvc.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/filters/aspectHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/directives/aspectHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/controllers/aspectAddCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                });
+
+
+                        function load(src) {
+                            return {
+                                deps: ['$ocLazyLoad',
+                                    function ($ocLazyLoad) {
+                                        return $ocLazyLoad.load(src);
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+        );

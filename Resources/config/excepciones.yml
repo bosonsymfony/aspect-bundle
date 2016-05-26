@@ -1,0 +1,5 @@
+excepciones:
+    ce2:
+        mensaje: excepciones.ce2.mensaje
+        descripcion: excepciones.ce2.descripcion
+        show_in_prod: true

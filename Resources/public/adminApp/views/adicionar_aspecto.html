@@ -1,0 +1,64 @@
+<md-content flex layout-padding>
+    <form name="addaspecto">
+        <md-input-container>
+            <label>Bundles *</label>
+            <md-select ng-model="bundle">
+                <md-option ng-repeat="b in info" ng-bind="b.NombreBundle"></md-option>
+            </md-select>
+        </md-input-container>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Nombre de aspecto *</label>
+                <input ng-model="nombreAspecto" name="nombAspecto" ng-pattern="alphanumeric">
+                <div ng-messages="addaspecto.nombAspecto.$error">
+                    <div ng-message="pattern">{{alphanumericMess}}</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Acción del controlador *</label>
+                <input ng-model="controllerAction" name="accCont" ng-pattern="regexacc_cont">
+                <div ng-messages="addaspecto.accCont.$error">
+                    <div ng-message="pattern">{{regexacc_contMess}}</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Tipo *</label>
+                <md-select ng-model="type">
+                    <md-option>pre</md-option>
+                    <md-option>post</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Nombre del servicio *</label>
+                <input ng-model="serviceName" name="serv" ng-pattern="regexserv">
+                <div ng-messages="addaspecto.serv.$error">
+                    <div ng-message="pattern">{{regexservMess}}</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Método *</label>
+                <input ng-model="method" name="metodo" ng-pattern="alphanumeric">
+                <div ng-messages="addaspecto.metodo.$error">
+                    <div ng-message="pattern">{{alphanumericMess}}</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Orden *</label>
+                <input ng-model="order" type="number">
+            </md-input-container>
+        </div>
+
+        <md-button ng-click="guardarClick()"
+                   ng-disabled="!nombreAspecto || !controllerAction || !type || !serviceName || !method || !order"
+                   class="md-raised md-primary">Adicionar Aspecto
+        </md-button>
+    </form>
+</md-content>

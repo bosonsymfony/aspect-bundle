@@ -1,0 +1,31 @@
+{
+    "name": "boson/aspect-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Paquete de Aspectos de Boson",
+    "authors": [
+        {
+            "name": "Julio Cesar Ocaña Bermudez",
+            "email": "jcocana@uci.cu"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"UCI\\Boson\\AspectBundle": ""}
+    },
+    "target-dir": "UCI/Boson/AspectBundle",
+    "require": {
+        "symfony/symfony": "~2.7.0"
+    },
+    "require-dev": {
+        "php": ">=5.4",
+        "symfony/symfony": "~2.7.0"
+    },
+     "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-b2.3":   "1.0.x-dev",
+            "dev-b2.7":   "1.1.x-dev"
+        }
+    }
+}

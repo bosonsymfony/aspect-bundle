@@ -1,0 +1,16 @@
+config_route: aspect_app_config
+menu:
+    aspect:
+        title: Aspectos
+        type: toggle
+        icon: mdi mdi-view-quilt
+        includes: aspect
+        children:
+            home:
+                title: Adicionar
+                type: link
+                state: aspect.add
+            gestion:
+                title: Editar y Eliminar
+                type: link
+                state: aspect.gest

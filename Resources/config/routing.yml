@@ -1,0 +1,6 @@
+aspect_angular_app:
+    resource: "@AspectBundle/Controller/"
+    type:     annotation
+    prefix:   /angular_app
+
+
