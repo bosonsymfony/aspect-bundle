@@ -8,6 +8,7 @@ angular.module('app')
                 $scope.alphanumeric = '[a-zA-Z0-9]+';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
+                $scope.regexnombaspecto = '[a-zA-Z0-9_]+';
                 $scope.alphanumericMess = "Solo se permiten letras y números.";
                 $scope.sololetrasMess = "Solo se permiten letras.";
                 $scope.numericMess= "Solo se permiten números.";
@@ -16,6 +17,7 @@ angular.module('app')
                 $scope.regexserv = '[a-zA-Z.]+';
                 $scope.regexacc_contMess= "Formato permitido: Controlador:Operación";
                 $scope.regexservMess= "Formato permitido: Servicio.Nombre";
+                $scope.regexnombaspectoMess= "Solo se permiten letras, números y el _";
 
                 aspectAddSvc.showCurrentInfo()
                     .success(function (response) {

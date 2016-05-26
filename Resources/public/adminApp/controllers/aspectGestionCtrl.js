@@ -18,7 +18,7 @@ angular.module('app')
                 $scope.regexnombaspecto = '[a-zA-Z0-9_]+';
                 $scope.regexacc_contMess= "Formato permitido: Controlador:Operación";
                 $scope.regexservMess= "Formato permitido: Servicio.Nombre";
-                $scope.regexnombaspectoMess= "Formato permitido: Controlador:Operación";
+                $scope.regexnombaspectoMess= "Solo se permiten letras, números y el _";
 
                 $scope.modificable = false;
                 $scope.wasmodified = false;

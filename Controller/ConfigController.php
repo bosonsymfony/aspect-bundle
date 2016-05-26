@@ -178,7 +178,7 @@ class ConfigController extends BackendController
         $dir = $this->getDirByBundle($data->getBundle());
 
         if ($this->existAspect($dir, $data->getNombreAspecto())) {
-            return new Response("El nombre especificado está en uso por otro aspecto dentro del componente", 500);
+            return new Response("El aspecto se encuentra registrado", 500);
         }
 
         $yaml = $this->getAspectByDir($dir);
