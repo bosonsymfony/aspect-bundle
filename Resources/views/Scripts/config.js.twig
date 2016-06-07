@@ -32,11 +32,39 @@ angular.module('app')
                                     }
                                 })
                                 .state('aspect.gest', {
-                                    url: '/administrarasp',
+                                    url: '/modificar',
                                     templateUrl: '{{ asset('bundles/aspect/adminApp/views/gestionar_aspectos.html')|raw }}',
                                     controller: 'aspectGestionCtrl',
                                     data: {
-                                        title: 'Editar/Eliminar Aspectos'
+                                        title: 'Modificar Aspectos'
+                                    },
+                                    resolve: load(
+                                            [
+                                                {
+                                                    name: 'hljs',
+                                                    files: [
+                                                        '{{ asset('bundles/backend/lib/highlight/highlight.pack.js')|raw }}',
+                                                        '{{ asset('bundles/backend/lib/highlight/styles/androidstudio.css')|raw }}',
+                                                        '{{ asset('bundles/backend/node_modules/angular-highlightjs/build/angular-highlightjs.js')|raw }}'
+                                                    ]
+                                                },
+                                                {
+                                                    files: [
+                                                        '{{ asset('bundles/aspect/adminApp/services/aspectGestionSvc.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/filters/aspectHomeFilter.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/directives/aspectHomeDirective.js')|raw }}',
+                                                        '{{ asset('bundles/aspect/adminApp/controllers/aspectGestionCtrl.js')|raw }}'
+                                                    ]
+                                                }
+                                            ]
+                                    )
+                                })
+                                .state('aspect.elim', {
+                                    url: '/elimaspecto',
+                                    templateUrl: '{{ asset('bundles/aspect/adminApp/views/eliminar_aspecto.html')|raw }}',
+                                    controller: 'aspectGestionCtrl',
+                                    data: {
+                                        title: 'Eliminar Aspectos'
                                     },
                                     resolve: load(
                                             [

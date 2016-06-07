@@ -1,0 +1,25 @@
+<md-content flex layout-padding>
+    <br/>
+    <br/>
+    <md-input-container>
+        <label>Bundle *</label>
+        <md-select ng-model="bundle" ng-change="loadAspect()">
+            <md-option ng-repeat="b in info" ng-bind="b.NombreBundle"></md-option>
+        </md-select>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Aspectos en {{bundle}} *</label>
+        <md-select ng-model="aspecto" ng-disabled="!bundle" ng-change="enablemod()">
+            <md-option ng-repeat="as in aspectosbundle" ng-bind="as"></md-option>
+        </md-select>
+    </md-input-container>
+
+    <br/>
+
+    <md-button ng-click="eliminar()"
+               style="text-transform: none"
+               ng-disabled="!bundle || !aspecto" class="md-raised md-primary">Eliminar Aspecto
+    </md-button>
+
+</md-content>

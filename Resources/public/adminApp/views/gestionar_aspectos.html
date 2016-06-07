@@ -1,5 +1,6 @@
 <md-content flex layout-padding>
     <br/>
+    <br/>
     <md-input-container>
         <label>Bundle *</label>
         <md-select ng-model="bundle" ng-change="loadAspect()">
@@ -24,7 +25,9 @@
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Nombre de aspecto *</label>
-                    <input ng-disabled="!modificable" name="nombAspecto" ng-model="newAspecto" ng-change="modif()" ng-pattern="regexnombaspecto">
+                    <input ng-disabled="!modificable" name="nombAspecto" ng-model="newAspecto" ng-change="modif()"
+                           ng-pattern="regexnombaspecto">
+
                     <div ng-messages="manageAspectos.nombAspecto.$error">
                         <div ng-message="pattern">{{regexnombaspectoMess}}</div>
                     </div>
@@ -32,7 +35,9 @@
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Acción del controlador *</label>
-                    <input ng-disabled="!modificable" ng-model="controllerAction" ng-change="modif()" name="accCont" ng-pattern="regexacc_cont">
+                    <input ng-disabled="!modificable" ng-model="controllerAction" ng-change="modif()" name="accCont"
+                           ng-pattern="regexacc_cont">
+
                     <div ng-messages="manageAspectos.accCont.$error">
                         <div ng-message="pattern">{{regexacc_contMess}}</div>
                     </div>
@@ -50,7 +55,9 @@
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Nombre del servicio *</label>
-                    <input ng-disabled="!modificable" ng-model="serviceName" ng-change="modif()" name="serv" ng-pattern="regexserv">
+                    <input ng-disabled="!modificable" ng-model="serviceName" ng-change="modif()" name="serv"
+                           ng-pattern="regexserv">
+
                     <div ng-messages="manageAspectos.serv.$error">
                         <div ng-message="pattern">{{regexservMess}}</div>
                     </div>
@@ -58,7 +65,9 @@
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Método *</label>
-                    <input ng-disabled="!modificable" ng-model="method" ng-change="modif()" name="metodo" ng-pattern="alphanumeric">
+                    <input ng-disabled="!modificable" ng-model="method" ng-change="modif()" name="metodo"
+                           ng-pattern="alphanumeric">
+
                     <div ng-messages="manageAspectos.metodo.$error">
                         <div ng-message="pattern">{{alphanumericMess}}</div>
                     </div>
@@ -70,12 +79,10 @@
                 </md-input-container>
             </div>
 
-            <md-button ng-click="guardarCambios()"
+            <md-button style="text-transform: none"
+                       ng-click="guardarCambios()"
                        ng-disabled="!wasmodified ||!modificable || !newAspecto || !controllerAction || !type || !serviceName || !order || !method"
                        class="md-raised md-primary">Modificar Aspecto
-            </md-button>
-
-            <md-button ng-click="eliminar()" ng-disabled="!bundle || !aspecto" class="md-raised md-primary">Eliminar Aspecto
             </md-button>
         </div>
     </form>
