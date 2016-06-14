@@ -9,15 +9,15 @@ angular.module('app')
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
                 $scope.regexnombaspecto = '[a-zA-Z0-9_]+';
-                $scope.alphanumericMess = "Solo se permiten letras y números.";
-                $scope.sololetrasMess = "Solo se permiten letras.";
-                $scope.numericMess= "Solo se permiten números.";
+                $scope.alphanumericMess = "Solo se permiten letras y números";
+                $scope.sololetrasMess = "Solo se permiten letras";
+                $scope.numericMess= "Solo se permiten números";
 
                 $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
                 $scope.regexserv = '[a-zA-Z.]+';
                 $scope.regexacc_contMess= "Formato permitido: Controlador:Operación";
-                $scope.regexservMess= "Formato permitido: Servicio.Nombre";
-                $scope.regexnombaspectoMess= "Solo se permiten letras, números y el _";
+                $scope.regexservMess= "Formato permitido: Servicio.Nombre. Solo se permiten letras";
+                $scope.regexnombaspectoMess= "Solo se permiten letras, números y _";
 
                 aspectAddSvc.showCurrentInfo()
                     .success(function (response) {
@@ -31,7 +31,7 @@ angular.module('app')
 
                     var confirm = $mdDialog.confirm()
                         .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea aplicar los cambios?')
+                        .textContent('¿Está seguro que desea adicionar el aspecto?')
                         .targetEvent(ev)
                         .ok('Si')
                         .cancel('No');

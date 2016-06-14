@@ -50,7 +50,7 @@ angular.module('app')
                 $scope.eliminar = function (ev) {
                     var confirm = $mdDialog.confirm()
                         .title('Confirmación eliminación')
-                        .textContent('¿Está seguro que desea eliminar el aspecto seleccionado?')
+                        .textContent('¿Está seguro que desea eliminar el aspecto?')
                         .targetEvent(ev)
                         .ok('Si')
                         .cancel('No');
