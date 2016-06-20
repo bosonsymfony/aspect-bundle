@@ -5,19 +5,27 @@ angular.module('app')
     .controller('aspectAddCtrl',
         ['$scope', 'aspectAddSvc', 'toastr', '$mdDialog',
             function ($scope, aspectAddSvc, toastr, $mdDialog) {
-                $scope.alphanumeric = '[a-zA-Z0-9]+';
+
+                aspectAddSvc.getCSRFtoken()
+                    .success(function (response) {
+                        $scope.token = response;
+                    })
+                    .error(function (response) {
+                    });
+
+                $scope.nombmet = '[a-zA-Z0-9_]+';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
-                $scope.regexnombaspecto = '[a-zA-Z0-9_]+';
-                $scope.alphanumericMess = "Solo se permiten letras y números";
-                $scope.sololetrasMess = "Solo se permiten letras";
-                $scope.numericMess= "Solo se permiten números";
+                $scope.regexnombaspecto = '[a-zA-Z0-9_ ]+';
+                $scope.nombmetMess = "Solo se permiten letras, números y caracter especial '_'.";
+                $scope.sololetrasMess = "Solo se permiten letras.";
+                $scope.numericMess= "Solo se permiten números.";
 
                 $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
-                $scope.regexserv = '[a-zA-Z.]+';
-                $scope.regexacc_contMess= "Formato permitido: Controlador:Operación";
-                $scope.regexservMess= "Formato permitido: Servicio.Nombre. Solo se permiten letras";
-                $scope.regexnombaspectoMess= "Solo se permiten letras, números y _";
+                $scope.regexserv = '[a-zA-Z0-9. ]+';
+                $scope.regexacc_contMess= "Formato permitido: Controlador:Operación.";
+                $scope.regexservMess= "Solo se permiten letras, números y caracter especial '.' .";
+                $scope.regexnombaspectoMess= "Solo se permiten letras, números y caracter especial '_'.";
 
                 aspectAddSvc.showCurrentInfo()
                     .success(function (response) {
@@ -46,14 +54,15 @@ angular.module('app')
                                 type: $scope.type,
                                 serviceName: $scope.serviceName,
                                 method: $scope.method,
-                                order: $scope.order
+                                order: $scope.order,
+                                _token: $scope.token
                             }
                         };
 
                         aspectAddSvc.writeYAML(data)
                             .success(function (response) {
                                 console.log(response);
-                                toastr.success("El aspecto ha sido insertado  satisfactoriamente")
+                                toastr.success(response)
                                 //location.reload();
                                 $scope.bundle = null;
                                 $scope.nombreAspecto = null;
@@ -69,7 +78,7 @@ angular.module('app')
                             });
                     }, function() {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación");
                     });
                 };
 

@@ -23,7 +23,12 @@ angular.module('app')
                     return $http.post(Routing.generate('aspect_save_data',{},true),data);
                 }
 
+                function getCSRFtoken() {
+                    return $http.post(Routing.generate('aspects_csrf_form', {}, true), {id_form: 'uci_boson_aspectbundle_data'});
+                }
+
                 return {
+                    getCSRFtoken: getCSRFtoken,
                     setMessage: setMessage,
                     getMessage: getMessage,
                     showCurrentInfo: showCurrentInfo,

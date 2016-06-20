@@ -1,3 +1,8 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Modificar aspecto</h2>
+    </div>
+</md-toolbar>
 <md-content flex layout-padding>
     <br/>
     <br/>
@@ -18,7 +23,7 @@
     <form name="manageAspectos">
         <div>
             <strong ng-show="aspecto && bundle">
-                Modificando aspecto {{aspecto}} de {{bundle}}
+                Datos de {{aspecto}} en {{bundle}}:
             </strong>
             <br/> <br/>
 
@@ -66,23 +71,27 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Método *</label>
                     <input ng-disabled="!modificable" ng-model="method" ng-change="modif()" name="metodo"
-                           ng-pattern="alphanumeric">
+                           ng-pattern="nombmet">
 
                     <div ng-messages="manageAspectos.metodo.$error">
-                        <div ng-message="pattern">{{alphanumericMess}}</div>
+                        <div ng-message="pattern">{{nombmetMess}}</div>
                     </div>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Orden *</label>
-                    <input ng-disabled="!modificable" ng-model="order" type="number" ng-change="modif()">
+                    <input ng-disabled="!modificable" name="orden" ng-pattern="numeric" ng-model="order" type="number" ng-change="modif()">
+
+                    <div ng-messages="manageAspectos.orden.$error">
+                        <div ng-message="pattern">{{numericMess}}</div>
+                    </div>
                 </md-input-container>
             </div>
 
             <md-button style="text-transform: none"
                        ng-click="guardarCambios()"
                        ng-disabled="!wasmodified ||!modificable || !newAspecto || !controllerAction || !type || !serviceName || !order || !method"
-                       class="md-raised md-primary">Modificar aspecto
+                       class="md-raised md-primary">Modificar
             </md-button>
         </div>
     </form>

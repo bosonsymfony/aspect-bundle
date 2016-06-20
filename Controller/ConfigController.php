@@ -17,6 +17,18 @@ use UCI\Boson\AspectBundle\Form\DataType;
 class ConfigController extends BackendController
 {
 
+    /**
+     * Obtiene el token para que los formularios de angular trabajen.
+     *
+     * @Route("/aspects/csrf_token", name="aspects_csrf_form", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function getCsrfTokenAction(Request $request){
+        $tokenId = $request->request->get('id_form');
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken($tokenId);
+        return new Response($token);
+    }
 
     /**
      * Devuelve la dirección de un bundle dado su nombre
@@ -26,7 +38,6 @@ class ConfigController extends BackendController
     public function getDirByBundle($nbund)
     {
         $dumper = new Dumper();
-        $bund = array();
         $bundles = $this->container->get('kernel')->getBundles();
         foreach ($bundles as $b) {
             if ($b->getName() == $nbund) {
@@ -178,7 +189,7 @@ class ConfigController extends BackendController
         $dir = $this->getDirByBundle($data->getBundle());
 
         if ($this->existAspect($dir, $data->getNombreAspecto())) {
-            return new Response("El aspecto se encuentra registrado", 500);
+            return new Response("El nombre especificado se encuentra en uso por otro aspecto.", 500);
         }
 
         $yaml = $this->getAspectByDir($dir);
@@ -193,7 +204,7 @@ class ConfigController extends BackendController
 
         $yaml_dump = $dumper->dump($yaml, 6);
         file_put_contents($dir, $yaml_dump);
-        return new Response();
+        return new Response("El aspecto ha sido insertado  satisfactoriamente.", 200);
     }
 
     /**
@@ -216,7 +227,7 @@ class ConfigController extends BackendController
 
         if ($data->getNombreAspecto() !== $data->getNombreAspectoAnterior()) {
             if ($this->existAspect($dir, $data->getNombreAspecto())) {
-                return new Response("El aspecto se encuentra registrado", 500);
+                return new Response("El nombre especificado se encuentra en uso por otro aspecto.", 500);
             }
         }
 
@@ -233,7 +244,7 @@ class ConfigController extends BackendController
 
         $yaml_dump = $dumper->dump($yaml, 6);
         file_put_contents($dir, $yaml_dump);
-        return new Response();
+        return new Response("El aspecto ha sido modificado satisfactoriamente.", 200);
     }
 
 
@@ -267,7 +278,7 @@ class ConfigController extends BackendController
             $yaml_dump = $dumper->dump($yaml_new, 6);
             file_put_contents($dir, $yaml_dump);
         }
-        return new Response();
+        return new Response("El aspecto ha sido eliminado satisfactoriamente.", 200);
     }
 
 }

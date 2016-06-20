@@ -6,19 +6,26 @@ angular.module('app')
         ['$scope', 'aspectGestionSvc', 'toastr', '$mdDialog',
             function ($scope, aspectGestionSvc, toastr, $mdDialog) {
 
-                $scope.alphanumeric = '[a-zA-Z0-9]+';
+                aspectGestionSvc.getCSRFtoken()
+                    .success(function (response) {
+                        $scope.token = response;
+                    })
+                    .error(function (response) {
+                    });
+
+                $scope.nombmet = '[a-zA-Z0-9_]+';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
-                $scope.alphanumericMess = "Solo se permiten letras y números.";
+                $scope.regexnombaspecto = '[a-zA-Z0-9_ ]+';
+                $scope.nombmetMess = "Solo se permiten letras, números y caracter especial '_'.";
                 $scope.sololetrasMess = "Solo se permiten letras.";
-                $scope.numericMess= "Solo se permiten números.";
+                $scope.numericMess = "Solo se permiten números.";
 
                 $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
-                $scope.regexserv = '[a-zA-Z.]+';
-                $scope.regexnombaspecto = '[a-zA-Z0-9_]+';
-                $scope.regexacc_contMess= "Formato permitido: Controlador:Operación";
-                $scope.regexservMess= "Formato permitido: Servicio.Nombre";
-                $scope.regexnombaspectoMess= "Solo se permiten letras, números y el _";
+                $scope.regexserv = '[a-zA-Z0-9. ]+';
+                $scope.regexacc_contMess = "Formato permitido: Controlador:Operación.";
+                $scope.regexservMess = "Solo se permiten letras, números y caracter especial '.' .";
+                $scope.regexnombaspectoMess = "Solo se permiten letras, números y caracter especial '_'.";
 
                 $scope.modificable = false;
                 $scope.wasmodified = false;
@@ -58,7 +65,7 @@ angular.module('app')
                         //si se selecciona que si:
                         aspectGestionSvc.deleteAspect($scope.bundle, $scope.aspecto)
                             .success(function (response) {
-                                toastr.success("El aspecto ha sido eliminado satisfactoriamente");
+                                toastr.success(response);
                                 //para limpiar los campos sin tener q recargar el html completo
                                 $scope.aspectosbundle = null;
                                 $scope.bundle = null;
@@ -84,7 +91,7 @@ angular.module('app')
                             });
                     }, function () {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación");
                     });
 
 
@@ -118,7 +125,7 @@ angular.module('app')
                         .targetEvent(ev)
                         .ok('Si')
                         .cancel('No');
-                    $mdDialog.show(confirm).then(function() {
+                    $mdDialog.show(confirm).then(function () {
                         //si se selecciona que si:
                         var data = {
                             uci_boson_aspectbundle_data: {
@@ -129,14 +136,15 @@ angular.module('app')
                                 type: $scope.type,
                                 serviceName: $scope.serviceName,
                                 method: $scope.method,
-                                order: $scope.order
+                                order: $scope.order,
+                                _token: $scope.token
                             }
                         };
 
                         aspectGestionSvc.ModifyData(data)
                             .success(function (response) {
                                 console.log(response);
-                                toastr.success("El aspecto ha sido modificado satisfactoriamente");
+                                toastr.success(response);
                                 aspectGestionSvc.getBundlesWithAspects()
                                     .success(function (response) {
                                         $scope.info = response;
@@ -148,6 +156,7 @@ angular.module('app')
                                         $scope.serviceName = null;
                                         $scope.method = null;
                                         $scope.order = null;
+                                        $scope.wasmodified = false;
                                     })
                                     .error(function (response) {
                                         toastr.error(response);
@@ -156,16 +165,11 @@ angular.module('app')
                             .error(function (response) {
                                 toastr.error(response);
                             });
-                    }, function() {
+                    }, function () {
                         //en caso contrario:
-                        toastr.info("Se ha cancelado la operación");
+                        //toastr.info("Se ha cancelado la operación");
                     });
-
-
                 };
-
-
             }
-
         ]
     );

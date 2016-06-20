@@ -1,3 +1,9 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Adicionar aspecto</h2>
+    </div>
+</md-toolbar>
+
 <md-content flex layout-padding>
     <form name="addaspecto">
         <md-input-container>
@@ -44,22 +50,25 @@
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Método *</label>
-                <input ng-model="method" name="metodo" ng-pattern="alphanumeric">
+                <input ng-model="method" name="metodo" ng-pattern="nombmet">
                 <div ng-messages="addaspecto.metodo.$error">
-                    <div ng-message="pattern">{{alphanumericMess}}</div>
+                    <div ng-message="pattern">{{nombmetMess}}</div>
                 </div>
             </md-input-container>
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Orden *</label>
-                <input ng-model="order" type="number">
+                <input ng-model="order" type="number" name="orden" ng-pattern="numeric">
+                <div ng-messages="addaspecto.orden.$error">
+                    <div ng-message="pattern">{{numericMess}}</div>
+                </div>
             </md-input-container>
         </div>
 
         <md-button ng-click="guardarClick()"
                    style="text-transform: none"
                    ng-disabled="!bundle || !nombreAspecto || !controllerAction || !type || !serviceName || !method || !order"
-                   class="md-raised md-primary">Adicionar aspecto
+                   class="md-raised md-primary">Adicionar
         </md-button>
     </form>
 </md-content>
