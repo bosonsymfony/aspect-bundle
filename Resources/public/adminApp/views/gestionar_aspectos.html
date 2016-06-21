@@ -80,7 +80,8 @@
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Orden *</label>
-                    <input ng-disabled="!modificable" name="orden" ng-pattern="numeric" ng-model="order" type="number" ng-change="modif()">
+                    <input ng-disabled="!modificable" name="orden" ng-pattern="numeric" ng-model="order" type="number"
+                           ng-change="modif()">
 
                     <div ng-messages="manageAspectos.orden.$error">
                         <div ng-message="pattern">{{numericMess}}</div>
@@ -88,10 +89,10 @@
                 </md-input-container>
             </div>
 
-            <md-button style="text-transform: none"
-                       ng-click="guardarCambios()"
-                       ng-disabled="!wasmodified ||!modificable || !newAspecto || !controllerAction || !type || !serviceName || !order || !method"
-                       class="md-raised md-primary">Modificar
+            <md-button
+                    ng-click="guardarCambios()"
+                    ng-disabled="!wasmodified ||!modificable || !newAspecto || !controllerAction || !type || !serviceName || !order || !method"
+                    class="md-raised md-primary">Modificar
             </md-button>
         </div>
     </form>
