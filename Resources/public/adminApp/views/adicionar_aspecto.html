@@ -58,7 +58,7 @@
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Orden *</label>
-                <input ng-model="order" type="number" name="orden" ng-pattern="numeric">
+                <input ng-model="order" name="orden" ng-pattern="numeric">
                 <div ng-messages="addaspecto.orden.$error">
                     <div ng-message="pattern">{{numericMess}}</div>
                 </div>
