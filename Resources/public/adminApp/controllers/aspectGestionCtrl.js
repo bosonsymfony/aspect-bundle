@@ -55,46 +55,49 @@ angular.module('app')
                 };
 
                 $scope.eliminar = function (ev) {
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación eliminación')
-                        .textContent('¿Está seguro que desea eliminar el aspecto?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function () {
-                        //si se selecciona que si:
-                        aspectGestionSvc.deleteAspect($scope.bundle, $scope.aspecto)
-                            .success(function (response) {
-                                toastr.success(response);
-                                //para limpiar los campos sin tener q recargar el html completo
-                                $scope.aspectosbundle = null;
-                                $scope.bundle = null;
-                                $scope.newAspecto = null;
-                                $scope.controllerAction = null;
-                                $scope.type = null;
-                                $scope.serviceName = null;
-                                $scope.method = null;
-                                $scope.order = null;
-                                $scope.aspecto = null;
-                                $scope.wasmodified = false;
-                                aspectGestionSvc.getBundlesWithAspects()
-                                    .success(function (response) {
-                                        $scope.info = response;
-                                    })
-                                    .error(function (response) {
-                                        toastr.error(response);
-                                    });
-                            })
-                            .error(function (response) {
-                                toastr.error(response);
-                                console.log(response);
-                            });
-                    }, function () {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación");
+
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/trazas/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            aspectGestionSvc.deleteAspect($scope.bundle, $scope.aspecto)
+                                .success(function (response) {
+                                    toastr.success(response);
+                                    //para limpiar los campos sin tener q recargar el html completo
+                                    $scope.aspectosbundle = null;
+                                    $scope.bundle = null;
+                                    $scope.newAspecto = null;
+                                    $scope.controllerAction = null;
+                                    $scope.type = null;
+                                    $scope.serviceName = null;
+                                    $scope.method = null;
+                                    $scope.order = null;
+                                    $scope.aspecto = null;
+                                    $scope.wasmodified = false;
+                                    aspectGestionSvc.getBundlesWithAspects()
+                                        .success(function (response) {
+                                            $scope.info = response;
+                                        })
+                                        .error(function (response) {
+                                            toastr.error(response);
+                                        });
+                                })
+                                .error(function (response) {
+                                    toastr.error(response);
+                                    console.log(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
-
-
                 };
 
                 $scope.enablemod = function () {
@@ -119,57 +122,77 @@ angular.module('app')
 
                 $scope.guardarCambios = function (ev) {
 
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea aplicar los cambios?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function () {
-                        //si se selecciona que si:
-                        var data = {
-                            uci_boson_aspectbundle_data: {
-                                bundle: $scope.bundle,
-                                nombreAspecto: $scope.newAspecto,
-                                nombreAspectoAnterior: $scope.aspecto,
-                                controllerAction: $scope.controllerAction,
-                                type: $scope.type,
-                                serviceName: $scope.serviceName,
-                                method: $scope.method,
-                                order: $scope.order,
-                                _token: $scope.token
-                            }
-                        };
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/trazas/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            var data = {
+                                uci_boson_aspectbundle_data: {
+                                    bundle: $scope.bundle,
+                                    nombreAspecto: $scope.newAspecto,
+                                    nombreAspectoAnterior: $scope.aspecto,
+                                    controllerAction: $scope.controllerAction,
+                                    type: $scope.type,
+                                    serviceName: $scope.serviceName,
+                                    method: $scope.method,
+                                    order: $scope.order,
+                                    _token: $scope.token
+                                }
+                            };
 
-                        aspectGestionSvc.ModifyData(data)
-                            .success(function (response) {
-                                console.log(response);
-                                toastr.success(response);
-                                aspectGestionSvc.getBundlesWithAspects()
-                                    .success(function (response) {
-                                        $scope.info = response;
-                                        $scope.aspectosbundle = null;
-                                        $scope.bundle = null;
-                                        $scope.newAspecto = null;
-                                        $scope.controllerAction = null;
-                                        $scope.type = null;
-                                        $scope.serviceName = null;
-                                        $scope.method = null;
-                                        $scope.order = null;
-                                        $scope.wasmodified = false;
-                                    })
-                                    .error(function (response) {
-                                        toastr.error(response);
-                                    });
-                            })
-                            .error(function (response) {
-                                toastr.error(response);
-                            });
-                    }, function () {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación");
+                            aspectGestionSvc.ModifyData(data)
+                                .success(function (response) {
+                                    console.log(response);
+                                    toastr.success(response);
+                                    aspectGestionSvc.getBundlesWithAspects()
+                                        .success(function (response) {
+                                            $scope.info = response;
+                                            $scope.aspectosbundle = null;
+                                            $scope.bundle = null;
+                                            $scope.newAspecto = null;
+                                            $scope.controllerAction = null;
+                                            $scope.type = null;
+                                            $scope.serviceName = null;
+                                            $scope.method = null;
+                                            $scope.order = null;
+                                            $scope.wasmodified = false;
+                                        })
+                                        .error(function (response) {
+                                            toastr.error(response);
+                                        });
+                                })
+                                .error(function (response) {
+                                    toastr.error(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
                 };
+            }
+        ]
+    )
+    .controller('DialogController',
+        ['$scope', 'aspectGestionSvc', 'toastr', '$mdDialog',
+            function ($scope, aspectGestionSvc, toastr, $mdDialog) {
+                $scope.hide = function () {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function (answer) {
+                    $mdDialog.hide(answer);
+                };
+
             }
         ]
     );

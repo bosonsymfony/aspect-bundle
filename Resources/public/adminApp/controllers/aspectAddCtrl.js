@@ -37,52 +37,115 @@ angular.module('app')
 
                 $scope.guardarClick = function (ev) {
 
-                    var confirm = $mdDialog.confirm()
-                        .title('Confirmación de cambios')
-                        .textContent('¿Está seguro que desea adicionar el aspecto?')
-                        .targetEvent(ev)
-                        .ok('Si')
-                        .cancel('No');
-                    $mdDialog.show(confirm).then(function() {
-                        //si se selecciona que si:
-                        var data = {
-                            uci_boson_aspectbundle_data: {
-                                bundle: $scope.bundle,
-                                nombreAspecto: $scope.nombreAspecto,
-                                nombreAspectoAnterior: null,
-                                controllerAction: $scope.controllerAction,
-                                type: $scope.type,
-                                serviceName: $scope.serviceName,
-                                method: $scope.method,
-                                order: $scope.order,
-                                _token: $scope.token
-                            }
-                        };
+                    $mdDialog.show({
+                        clickOutsideToClose: true,
+                        controller: 'DialogController',
+                        focusOnOpen: false,
+                        targetEvent: ev,
+                        locals: {
+                            entities: $scope.selected
+                        },
+                        templateUrl: $scope.$urlAssets + 'bundles/trazas/adminApp/views/confirm-dialog.html'
+                    }).then(function (answer) {
+                        //console.log(answer);
+                        if (answer == 'Aceptar') {
+                            var data = {
+                                uci_boson_aspectbundle_data: {
+                                    bundle: $scope.bundle,
+                                    nombreAspecto: $scope.nombreAspecto,
+                                    nombreAspectoAnterior: null,
+                                    controllerAction: $scope.controllerAction,
+                                    type: $scope.type,
+                                    serviceName: $scope.serviceName,
+                                    method: $scope.method,
+                                    order: $scope.order,
+                                    _token: $scope.token
+                                }
+                            };
+                            aspectAddSvc.writeYAML(data)
+                                .success(function (response) {
+                                    console.log(response);
+                                    toastr.success(response)
+                                    //location.reload();
+                                    $scope.bundle = null;
+                                    $scope.nombreAspecto = null;
+                                    $scope.controllerAction = null;
+                                    $scope.type = null;
+                                    $scope.serviceName = null;
+                                    $scope.method = null;
+                                    $scope.order = null;
 
-                        aspectAddSvc.writeYAML(data)
-                            .success(function (response) {
-                                console.log(response);
-                                toastr.success(response)
-                                //location.reload();
-                                $scope.bundle = null;
-                                $scope.nombreAspecto = null;
-                                $scope.controllerAction = null;
-                                $scope.type = null;
-                                $scope.serviceName = null;
-                                $scope.method = null;
-                                $scope.order = null;
-
-                            })
-                            .error(function (response) {
-                                toastr.error(response);
-                            });
-                    }, function() {
-                        //en caso contrario:
-                        //toastr.info("Se ha cancelado la operación");
+                                })
+                                .error(function (response) {
+                                    toastr.error(response);
+                                });
+                        } else {
+                            // alert("Cancelar");
+                        }
                     });
+
+                    //var confirm = $mdDialog.confirm()
+                    //    .title('Confirmación de cambios')
+                    //    .textContent('¿Está seguro que desea adicionar el aspecto?')
+                    //    .targetEvent(ev)
+                    //    .ok('Si')
+                    //    .cancel('No');
+                    //$mdDialog.show(confirm).then(function() {
+                    //    //si se selecciona que si:
+                    //    var data = {
+                    //        uci_boson_aspectbundle_data: {
+                    //            bundle: $scope.bundle,
+                    //            nombreAspecto: $scope.nombreAspecto,
+                    //            nombreAspectoAnterior: null,
+                    //            controllerAction: $scope.controllerAction,
+                    //            type: $scope.type,
+                    //            serviceName: $scope.serviceName,
+                    //            method: $scope.method,
+                    //            order: $scope.order,
+                    //            _token: $scope.token
+                    //        }
+                    //    };
+                    //
+                    //    aspectAddSvc.writeYAML(data)
+                    //        .success(function (response) {
+                    //            console.log(response);
+                    //            toastr.success(response)
+                    //            //location.reload();
+                    //            $scope.bundle = null;
+                    //            $scope.nombreAspecto = null;
+                    //            $scope.controllerAction = null;
+                    //            $scope.type = null;
+                    //            $scope.serviceName = null;
+                    //            $scope.method = null;
+                    //            $scope.order = null;
+                    //
+                    //        })
+                    //        .error(function (response) {
+                    //            toastr.error(response);
+                    //        });
+                    //}, function() {
+                    //    //en caso contrario:
+                    //    //toastr.info("Se ha cancelado la operación");
+                    //});
                 };
 
             }
 
+        ]
+    )
+    .controller('DialogController',
+        ['$scope', 'aspectAddSvc', 'toastr', '$mdDialog',
+            function ($scope, aspectAddSvc, toastr, $mdDialog) {
+                $scope.hide = function () {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function (answer) {
+                    $mdDialog.hide(answer);
+                };
+
+            }
         ]
     );
