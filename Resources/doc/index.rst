@@ -148,7 +148,22 @@ Componente: AspectBundle
                 </aspects>
             </aspects>
 
-3.4. Request y Response de los controladores
+3.4. Configurando el componente a través de la interfaz gráfica
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3.4.1. Adicionar aspectos por componentes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Para adicionar nuevos aspectos es necesario acceder a la opción Adicionar, dentro del menú de Aspectos. Esta acción muestra una pantalla con los elementos para construir un nuevo aspecto, siendo obligatorio especificarlos todos para activar el botón de adición. Luego de especificados estos campos y presionado el botón de adición se pide una confirmación para adicionar el aspecto. Al indicar que sí se desea adicionar el aspecto, se muestra el mensaje indicando el éxito de la operación.
+
+3.4.2. Modificar aspectos por componentes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Para modificar algunos de estos aspectos se debe acceder a la opción Modificar en el menú lateral. El combo box Bundles muestra solo los bundles con aspectos ya especificados. En dependencia del bundle que se seleccione se muestran en el combo box de aspecto un conjunto de aspectos para ese bundle. Para modificar alguno de estos aspectos solo basta con seleccionarlo y modificar el campo deseado en el segmento inferior de la ventana. El usuario debe presionar el botón Modificar. El sistema pide una confirmación antes de realizar la acción. Al seleccionar que si se desea modificar el aspecto se muestra un mensaje indicando el éxito de la operación: “El aspecto se ha modificado satisfactoriamente”.
+
+3.4.3. Eliminar aspectos por componentes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Para eliminar alguno de estos aspectos se debe acceder a la opción Eliminar en el menú lateral. Luego se debe especificar a que bundle pertenece el aspecto en cuestión, y el nombre del mismo. Una vez en este paso se activa el botón Eliminar. Una vez presionado el botón se pide al usuario la confirmación para realizar los cambios. Al presionar que si se desea eliminar el aspecto se muestra un mensaje indicando el éxito de la operación.
+
+
+3.5. Request y Response de los controladores
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Si usted desea trabajar dentro de su aspecto con el **Request** y **Response** del controlador ejecutado,
