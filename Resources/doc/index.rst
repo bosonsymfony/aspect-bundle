@@ -188,7 +188,8 @@ Para eliminar alguno de estos aspectos se debe acceder a la opción Eliminar en 
 ---------------------------------------------
 
 :Versión: 1.0 17/7/2015
-:Autores: Julio Cesar Ocaña Bermúdez jcocana@uci.cu
+:Autores: Julio Cesar Ocaña Bermúdez jcocana@uci.cu,
+          Daniel Herrera Sánchez dherrera@estudiantes.uci.cu
 
 Contribuidores
 --------------
