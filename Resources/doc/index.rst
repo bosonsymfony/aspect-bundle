@@ -38,17 +38,6 @@ Componente: AspectBundle
                );
            }
 
-    4. Para que el componente pueda cargar las configuraciones de los aspectos de un bundle
-       usted deberá agregar al final del método `load()` de
-       la clase `MyBundle/DependencyInjection/MyBundleExtension.php` lo siguiente:
-
-       .. code-block:: php
-
-           $AspectExt = new AspectExtension();
-           $AspectExt->loadFileAspects($container);
-
-       además de cargar las configuraciones estas líneas permitirán validar si las configuraciones de los aspectos son correctas.
-
 3. Especificación funcional
 ---------------------------
 
