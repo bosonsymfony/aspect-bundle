@@ -6,12 +6,13 @@ parameters:
 services:
     aspect_pointcut:
         class: "%action.pointcut.class%"
-        arguments: ["@service_container"]
+        arguments: ["@service_container","%uci_boson_aspects%"]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
     aspect_interceptor:
         class: "%action.interceptor.class%"
+        arguments: ["@service_container","%uci_boson_aspects%"]
     #servicio para pruebas unitarias
     uci.boson.aspect.example:
             class: "%uci.boson.aspect.example.class%"
