@@ -13,7 +13,8 @@ angular.module('app')
                     .error(function (response) {
                     });
 
-                $scope.nombmet = '[a-zA-Z0-9_]+';
+                // $scope.nombmet = '[a-zA-Z0-9_]+';
+                $scope.nombmet = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
                 $scope.regexnombaspecto = '[a-zA-Z0-9_ ]+';
@@ -21,7 +22,8 @@ angular.module('app')
                 $scope.sololetrasMess = "Solo se permiten letras.";
                 $scope.numericMess= "Solo se permiten números.";
 
-                $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
+                // $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
+                $scope.regexacc_cont = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*:[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
                 $scope.regexserv = '[a-zA-Z0-9. ]+';
                 $scope.regexacc_contMess= "Formato permitido: Controlador:Operación.";
                 $scope.regexservMess= "Solo se permiten letras, números y caracter especial '.' .";
@@ -45,7 +47,7 @@ angular.module('app')
                         locals: {
                             entities: $scope.selected
                         },
-                        templateUrl: $scope.$urlAssets + 'bundles/trazas/adminApp/views/confirm-dialog.html'
+                        templateUrl: $scope.$urlAssets + 'bundles/aspect/adminApp/views/confirm-dialog.html'
                     }).then(function (answer) {
                         //console.log(answer);
                         if (answer == 'Aceptar') {
