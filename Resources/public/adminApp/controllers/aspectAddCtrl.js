@@ -13,21 +13,19 @@ angular.module('app')
                     .error(function (response) {
                     });
 
-                // $scope.nombmet = '[a-zA-Z0-9_]+';
                 $scope.nombmet = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
                 $scope.sololetras = '[a-z A-Z]+';
                 $scope.numeric = '[0-9]+';
                 $scope.regexnombaspecto = '[a-zA-Z0-9_ ]+';
-                $scope.nombmetMess = "Solo se permiten letras, números y caracter especial '_'.";
+                $scope.nombmetMess = "Caracteres alfanuméricos y caracter especial _, no debe comenzar la expresión con números.";
                 $scope.sololetrasMess = "Solo se permiten letras.";
                 $scope.numericMess= "Solo se permiten números.";
 
-                // $scope.regexacc_cont = '[a-zA-Z]+:[a-z0-9A-Z]+';
                 $scope.regexacc_cont = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*:[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
                 $scope.regexserv = '[a-zA-Z0-9. ]+';
-                $scope.regexacc_contMess= "Formato permitido: Controlador:Operación.";
-                $scope.regexservMess= "Solo se permiten letras, números y caracter especial '.' .";
-                $scope.regexnombaspectoMess= "Solo se permiten letras, números y caracter especial '_'.";
+                $scope.regexacc_contMess= "Caracteres alfanuméricos, no debe comenzar la expresión con números  y caracter especial :";
+                $scope.regexservMess= "Caracteres alfanuméricos y caracter especial .";
+                $scope.regexnombaspectoMess= "Caracteres alfanuméricos y caracter especial _.";
 
                 aspectAddSvc.showCurrentInfo()
                     .success(function (response) {
