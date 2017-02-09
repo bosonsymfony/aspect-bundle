@@ -3,7 +3,7 @@
     "license": "MIT",
     "type": "symfony-bundle",
     "description": "Paquete de Aspectos de Boson",
-    "homepage": "https://github.com/bosonsymfony/aspect-bundle",
+    "url": "https://github.com/bosonsymfony/aspect-bundle",
     "authors": [
         {
             "name": "Julio Cesar Ocaña Bermudez",
