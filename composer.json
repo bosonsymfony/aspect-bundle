@@ -1,7 +1,7 @@
 {
     "name": "boson/aspect-bundle",
     "license": "MIT",
-    "type": "composer",
+    "type": "library",
     "description": "Paquete de Aspectos de Boson",
     "url": "https://github.com/bosonsymfony/aspect-bundle",
     "authors": [
@@ -11,9 +11,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {"UCI\\Boson\\AspectBundle": ""}
+        "psr-0": {"AspectBundle": "src"}
     },
-    "target-dir": "UCI/Boson/AspectBundle",
     "require": {
         "symfony/symfony": "~2.7.0"
     },
